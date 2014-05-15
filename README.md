@@ -11,12 +11,14 @@ to add more!
 Joining a Network
 -----------------
 `/connect IRC.SOMENETWORK.NET`
+
 This will cause the server window to appear.
 Once it is there, you can now join channels!
 
 Joining a Channel
 -----------------
 `/join CHANNELNAME`
+
 NOTE: _DO NOT_ precede the channel name with a crunch(#) !
 
 Switching Channel Panes
