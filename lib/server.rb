@@ -13,6 +13,7 @@ class Server
 		@buffer = []
 		@channels = {}
 		@nick, @user, @real, @pass = user_config
+    get_hostname
 		post_initialize
 	end
 	def post_initialize
@@ -25,9 +26,14 @@ class Server
 		return conf["nickname"], conf["username"], conf["realname"], conf["nickserv"]
 	end
 
+  def get_hostname
+    ip = @stream.peeraddr.last
+    @hostname = %x(host #{ip}).split(" ").last.chop!
+  end
+
 	def join_server
 		stream.puts "NICK #{@nick}"
-		stream.puts "USER #{@user} 8 * :#{@real}"
+		stream.puts "USER #{@user} #{@user} #{@hostname} :#{@real}"
 	end
 
 	def identify
@@ -60,9 +66,6 @@ class Server
 		#Routing to server buffer
 		elsif ( msg[0].include? "NickServ" )
 			identify()
-		elsif ( msg[1].to_i == 1 )
-			@hostname = msg[0].delete(":")
-			@buffer << str
 		elsif ( msg[0].include? @hostname )
 			@buffer << str
 		#Routing to channels

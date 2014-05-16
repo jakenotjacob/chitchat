@@ -77,10 +77,6 @@ begin
 			@user_input.read_key(keypress)
 		when Ncurses::KEY_BACKSPACE, "\b".ord
 			@user_input.read_key(keypress)
-		############################################
-		when Ncurses::KEY_F2
-			this_chan = @channels[current_chan.peek].name
-			@channels[0].window.mvaddstr(5, 5, @server.channels[this_chan.to_sym].buffer.length.to_s)
 		when Ncurses::KEY_ENTER, "\n".ord
 			if @user_input.buffer[0] == "/"
 				cmd_string = (@user_input.buffer[1..-1])
